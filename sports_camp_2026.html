@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Camp 2026 — Hệ thống trường Việt Anh</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#064c8c;--blue-mid:#185FA5;--blue-light:#378ADD;--blue-pale:#e8f1fb;--red:#8B1A1A;--red-mid:#A32D2D;--gold:#EF9F27;--bg:#f0f5fb;--dark:#03213d}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:#1a2a3a}
+.topbar{background:var(--dark);display:flex;justify-content:space-between;align-items:center;padding:11px 24px;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--red);flex-wrap:wrap;gap:8px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:3px;cursor:pointer}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:1px;flex-wrap:wrap}
+.nav-btn{background:none;border:none;font-family:'Be Vietnam Pro',sans-serif;font-size:11px;color:rgba(255,255,255,0.6);padding:6px 11px;border-radius:3px;cursor:pointer;transition:all 0.2s}
+.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,0.13);color:#fff}
+.hotline{font-size:11px;color:rgba(255,255,255,0.5)}
+.hotline strong{color:var(--gold)}
+.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(150deg,var(--dark) 0%,#064c8c 55%,#8B1A1A 100%);min-height:440px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero-pat{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(60deg,#fff 0,#fff 1px,transparent 0,transparent 40px),repeating-linear-gradient(-60deg,#fff 0,#fff 1px,transparent 0,transparent 40px);background-size:40px 40px}
+.hero-glow{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(139,26,26,0.25) 0%,transparent 70%);right:-80px;top:-80px;pointer-events:none}
+.hero-content{flex:1;padding:40px 28px 34px;position:relative;z-index:2}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
+.hbadge{font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 12px;border-radius:2px;text-transform:uppercase}
+.hb-red{background:var(--red);color:#fff}
+.hb-ghost{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.82);border:1px solid rgba(255,255,255,0.18)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,90px);color:#fff;line-height:0.92;margin-bottom:11px;letter-spacing:1px}
+.hero-title .gold{color:var(--gold)}.hero-title .red{color:#F09595}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.6);max-width:500px;line-height:1.75;margin-bottom:24px;font-weight:300}
+.hero-cta{display:flex;gap:9px;flex-wrap:wrap}
+.btn{border:none;padding:10px 20px;font-size:12px;font-weight:500;cursor:pointer;border-radius:3px;font-family:'Be Vietnam Pro',sans-serif;transition:opacity 0.2s}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{opacity:0.84}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{opacity:0.84}
+.btn-out{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}.btn-out:hover{background:rgba(255,255,255,0.1)}
+.cbar{background:var(--blue);padding:12px 24px;display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap;border-top:2px solid var(--red)}
+.cbar-lbl{font-size:10px;color:rgba(255,255,255,0.52);letter-spacing:2px;text-transform:uppercase}
+.cd-units{display:flex;gap:3px;align-items:center}
+.cd-box{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.13);border-radius:3px;padding:4px 9px;text-align:center;min-width:43px}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:21px;color:#fff;display:block;line-height:1}
+.cd-lbl{font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase}
+.cd-sep{font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.28)}
+.cbar-close{font-size:10px;color:rgba(255,255,255,0.42);padding-left:10px;border-left:1px solid rgba(255,255,255,0.13)}
+.sec{padding:40px 24px}
+.sec-white{background:#fff}
+.sec-bg{background:var(--bg)}
+.stag{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red-mid);margin-bottom:4px}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,5vw,40px);color:var(--dark);letter-spacing:1px;line-height:1;margin-bottom:3px}
+.ssub{font-size:12px;color:#7a8a9a;margin-bottom:22px}
+.day-tabs{display:flex;gap:7px;margin-bottom:22px;flex-wrap:wrap}
+.dtab{padding:8px 20px;border:1px solid #b8cde0;border-radius:3px;font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:#4a6a8a;transition:all 0.2s;font-family:'Be Vietnam Pro',sans-serif}
+.dtab:hover{border-color:var(--blue);color:var(--blue)}
+.dtab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.dtab.red.active{background:var(--red);border-color:var(--red)}
+.day-content{display:none}.day-content.active{display:block}
+.tl{display:flex;flex-direction:column}
+.tl-row{display:flex}
+.tl-left{width:110px;flex-shrink:0;text-align:right;padding:14px 14px 14px 0}
+.tl-time{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--blue);letter-spacing:1px}
+.tl-time.red{color:var(--red)}.tl-time.gold{color:#a06400}
+.tl-line{width:2px;background:#d0dcea;flex-shrink:0;position:relative}
+.tl-dot{width:11px;height:11px;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);top:16px;z-index:1}
+.dot-b{background:var(--blue);border:2px solid var(--bg)}
+.dot-r{background:var(--red);border:2px solid var(--bg)}
+.dot-g{background:var(--gold);border:2px solid var(--bg)}
+.tl-right{flex:1;padding:10px 0 10px 16px}
+.tc{background:#fff;border:1px solid #d0dcea;border-radius:4px;padding:12px 15px;border-left:3px solid var(--blue)}
+.tc.r{border-left-color:var(--red)}.tc.g{border-left-color:var(--gold)}
+.tc.dark{background:var(--dark);border-color:var(--red)}
+.tc h4{font-size:13px;font-weight:500;color:var(--dark);margin-bottom:2px}
+.tc.dark h4{color:#fff}
+.tc p{font-size:11px;color:#5a6a7a;line-height:1.55}
+.tc.dark p{color:rgba(255,255,255,0.6)}
+.vtag{display:inline-block;background:var(--blue-pale);color:var(--blue);font-size:10px;padding:2px 8px;border-radius:2px;margin-top:5px;font-weight:500}
+.vtag.r{background:#f9eded;color:var(--red-mid)}.vtag.g{background:#fef4e3;color:#834e0b}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.chip{padding:5px 13px;border:1px solid #b0c4d8;border-radius:2px;font-size:11px;font-weight:500;color:#4a6080;background:#fff;cursor:pointer;transition:all 0.2s}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1px;background:#d0dcea;border:1px solid #d0dcea;border-radius:4px;overflow:hidden}
+.scard{background:#fff;padding:13px 15px;transition:background 0.15s}
+.scard:hover{background:#eef4fb}
+.sicon{font-size:16px;margin-bottom:5px;display:block}
+.sname{font-size:12px;font-weight:500;color:var(--dark);margin-bottom:2px}
+.svenue{font-size:10px;color:#7a8a9a}
+.sformat{font-size:10px;color:#4a6a8a;margin-top:3px;line-height:1.5}
+.sday-badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:2px;margin-top:4px;font-weight:600}
+.sd1{background:#e8f1fb;color:var(--blue)}.sd2{background:#f9eded;color:var(--red-mid)}
+.camp-sec{background:linear-gradient(135deg,var(--dark) 0%,#064c8c 65%,#1a0505 100%);padding:40px 24px;position:relative;overflow:hidden}
+.camp-pat{position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:22px 22px}
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:11px;position:relative;z-index:1}
+.cc{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.11);border-radius:4px;padding:16px}
+.cc-icon{font-size:22px;margin-bottom:8px}
+.cc h4{font-size:12px;font-weight:500;color:#fff;margin-bottom:4px}
+.cc p{font-size:11px;color:rgba(255,255,255,0.58);line-height:1.6}
+.tbadge{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:2px;margin-top:7px}
+.fire-box{background:rgba(239,159,39,0.11);border:1px solid rgba(239,159,39,0.28);border-radius:4px;padding:14px 18px;margin-top:12px;display:flex;gap:12px;align-items:center;position:relative;z-index:1}
+.fire-box h4{font-size:13px;font-weight:500;color:var(--gold);margin-bottom:2px}
+.fire-box p{font-size:11px;color:rgba(255,255,255,0.62);line-height:1.55}
+.awards-box{background:var(--dark);border:2px solid var(--gold);border-radius:5px;padding:18px 22px;margin-top:14px;position:relative;z-index:1}
+.aw-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);letter-spacing:2px;margin-bottom:5px}
+.awards-box p{font-size:12px;color:rgba(255,255,255,0.68);line-height:1.6}
+.aw-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.aw-tag{background:rgba(239,159,39,0.14);color:var(--gold);border:1px solid rgba(239,159,39,0.28);font-size:10px;padding:3px 10px;border-radius:2px}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.ncard{background:var(--bg);border:1px solid #d0dcea;padding:14px 16px;border-radius:4px;border-top:2px solid var(--blue)}
+.ncard.r{border-top-color:var(--red)}
+.ncard-lbl{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue-mid);margin-bottom:5px}
+.ncard.r .ncard-lbl{color:var(--red)}
+.ncard p{font-size:12px;color:#4a6070;line-height:1.65}
+.reg-hero{background:linear-gradient(135deg,var(--dark) 0%,#064c8c 100%);padding:36px 24px;position:relative;overflow:hidden}
+.reg-hero-pat{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 28px);background-size:28px 28px}
+.rh-content{position:relative;z-index:1}
+.rh-content h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:2px;margin-bottom:4px}
+.rh-content p{font-size:12px;color:rgba(255,255,255,0.58)}
+.reg-info{background:var(--blue-pale);border:1px solid #b8d0e8;border-radius:4px;padding:12px 16px;margin-bottom:20px;display:flex;gap:10px}
+.reg-info p{font-size:12px;color:var(--blue);line-height:1.6}
+.scards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.srcard{background:#fff;border:1px solid #d0dcea;border-radius:5px;padding:18px;position:relative;overflow:hidden;transition:box-shadow 0.2s}
+.srcard:hover{box-shadow:0 4px 16px rgba(6,76,140,0.1)}
+.srcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue)}
+.srcard.r::before{background:var(--red)}.srcard.g::before{background:var(--gold)}
+.s-circle{width:42px;height:42px;border-radius:50%;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:9px}
+.s-circle.r{background:#f9eded}.s-circle.g{background:#fef4e3}
+.srcard h3{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:3px}
+.srcard .sdesc{font-size:11px;color:#7a8a9a;margin-bottom:12px;line-height:1.5}
+.reg-a{display:block;width:100%;padding:9px;background:var(--blue);color:#fff;text-align:center;text-decoration:none;border-radius:3px;font-size:11px;font-weight:500;transition:opacity 0.2s;font-family:'Be Vietnam Pro',sans-serif}
+.reg-a:hover{opacity:0.84}.reg-a.r{background:var(--red)}
+.reg-a.out{background:transparent;color:var(--blue);border:1px solid var(--blue)}.reg-a.out:hover{background:var(--blue-pale)}
+.results-hero{background:linear-gradient(135deg,var(--dark) 0%,#064c8c 100%);padding:36px 24px;position:relative;overflow:hidden}
+.results-hero-pat{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 28px);background-size:28px 28px}
+.rsh{position:relative;z-index:1}
+.rsh h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:2px;margin-bottom:4px}
+.rsh p{font-size:12px;color:rgba(255,255,255,0.55)}
+.results-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.rtab{padding:7px 18px;border:1px solid #b8cde0;border-radius:3px;font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:#4a6a8a;transition:all 0.2s;font-family:'Be Vietnam Pro',sans-serif}
+.rtab:hover{border-color:var(--blue);color:var(--blue)}
+.rtab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.sport-result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.sr-card{background:#fff;border:1px solid #d0dcea;border-radius:5px;overflow:hidden}
+.sr-card-head{background:var(--blue);padding:10px 14px;display:flex;align-items:center;gap:9px}
+.sr-card-head.red-head{background:var(--red)}
+.sr-card-icon{font-size:18px}
+.sr-card-name{font-size:13px;font-weight:500;color:#fff}
+.sr-card-day{font-size:10px;color:rgba(255,255,255,0.65);margin-left:auto;background:rgba(255,255,255,0.15);padding:2px 8px;border-radius:2px}
+.sr-podium{padding:12px 14px}
+.sr-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f0f4f9}
+.sr-row:last-child{border-bottom:none}
+.sr-rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.rank-1{background:#FFD700;color:#5a3800}
+.rank-2{background:#C0C0C0;color:#3a3a3a}
+.rank-3{background:#CD7F32;color:#fff}
+.sr-team{font-size:12px;font-weight:500;color:var(--dark)}
+.overall-table{width:100%;border-collapse:collapse;font-size:13px}
+.overall-table th{background:var(--blue);color:#fff;padding:9px 12px;text-align:left;font-weight:500;font-size:11px;letter-spacing:1px}
+.overall-table td{padding:9px 12px;border-bottom:1px solid #e8f1fb;color:#2a3a4a}
+.overall-table tr:hover td{background:#f5f9ff}
+.overall-table .rank-col{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--blue);width:40px}
+.medal-g{color:#DAA520;font-weight:600}
+.medal-s{color:#888;font-weight:600}
+.medal-b{color:#CD7F32;font-weight:600}
+.total-col{font-weight:600;color:var(--dark)}
+.notice-box{background:var(--blue-pale);border:1px solid #b8d0e8;border-radius:4px;padding:14px 18px;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
+.notice-box p{font-size:12px;color:var(--blue);line-height:1.6}
+.gallery-hero{background:linear-gradient(135deg,var(--dark) 0%,#064c8c 100%);padding:36px 24px;position:relative;overflow:hidden}
+.gallery-hero-pat{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 28px);background-size:28px 28px}
+.gh{position:relative;z-index:1}
+.gh h2{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:2px;margin-bottom:4px}
+.gh p{font-size:12px;color:rgba(255,255,255,0.55)}
+.gallery-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.gf-chip{padding:5px 14px;border:1px solid #b0c4d8;border-radius:2px;font-size:11px;font-weight:500;color:#4a6080;background:#fff;cursor:pointer;transition:all 0.2s}
+.gf-chip:hover{border-color:var(--blue);color:var(--blue)}
+.gf-chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.g-item{border-radius:4px;overflow:hidden;position:relative;cursor:pointer;aspect-ratio:4/3;background:#d0dcea}
+.g-item:hover .g-overlay{opacity:1}
+.g-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#e0eaf8 0%,#c8daf0 100%)}
+.g-placeholder.red-ph{background:linear-gradient(135deg,#f5dede 0%,#e8c5c5 100%)}
+.g-placeholder.dark-ph{background:linear-gradient(135deg,#d0dcea 0%,#b8cce0 100%)}
+.g-placeholder.gold-ph{background:linear-gradient(135deg,#fef0d0 0%,#fde0a0 100%)}
+.g-ph-icon{font-size:28px}
+.g-ph-label{font-size:10px;color:#5a7a9a;font-weight:500;text-align:center;padding:0 8px}
+.g-overlay{position:absolute;inset:0;background:rgba(6,76,140,0.75);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.g-overlay.red-ov{background:rgba(139,26,26,0.75)}
+.g-overlay span{color:#fff;font-size:11px;font-weight:500;text-align:center;padding:0 10px;line-height:1.5}
+.upload-notice{background:#fff;border:2px dashed #b0c4d8;border-radius:5px;padding:28px;text-align:center;margin-bottom:20px}
+.upload-notice .un-icon{font-size:36px;margin-bottom:10px}
+.upload-notice h4{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:4px}
+.upload-notice p{font-size:12px;color:#7a8a9a;line-height:1.6}
+.footer{background:var(--dark);padding:20px 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+.fbrand{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:3px}
+.fbrand span{color:var(--gold)}
+.fsub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
+.finfo{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.85}
+.finfo a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo" onclick="showPage('home')">SPORTS <span>CAMP</span> 2026</div>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nav-home" onclick="showPage('home')">🏠 Trang chủ</button>
+    <button class="nav-btn" id="nav-register" onclick="showPage('register')">📝 Đăng ký</button>
+    <button class="nav-btn" id="nav-results" onclick="showPage('results')">🏆 Kết quả</button>
+    <button class="nav-btn" id="nav-gallery" onclick="showPage('gallery')">📸 Thư viện</button>
+    <button class="nav-btn" id="nav-camp" onclick="showPage('home');setTimeout(()=>document.getElementById('camp-sec').scrollIntoView({behavior:'smooth'}),120)">🔥 Lửa trại</button>
+  </div>
+  <div class="hotline">📞 <strong>0868.57.57.17</strong></div>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-pat"></div><div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badges">
+        <div class="hbadge hb-red">Hệ thống trường Việt Anh</div>
+        <div class="hbadge hb-ghost">🏕️ Cắm trại & Lửa trại</div>
+        <div class="hbadge hb-ghost">26 – 27/06/2026</div>
+      </div>
+      <div class="hero-title">VIET ANH<br><span class="gold">SPORTS</span> <span class="red">CAMP</span><br>2026</div>
+      <p class="hero-sub">2 ngày thi đấu · 21 môn thể thao · 5 trường tranh tài — kết hợp cắm trại & đêm lửa trại. Khai mạc 06:30 ngày 26/06 · Bế mạc & Trao giải 18:00 ngày 27/06.</p>
+      <div class="hero-cta">
+        <button class="btn btn-red" onclick="document.getElementById('schedule-sec').scrollIntoView({behavior:'smooth'})">📅 Lịch chương trình</button>
+        <button class="btn btn-blue" onclick="document.getElementById('sports-sec').scrollIntoView({behavior:'smooth'})">⚽ Các môn thi đấu</button>
+        <button class="btn btn-out" onclick="showPage('register')">📝 Đăng ký</button>
+        <button class="btn btn-out" onclick="showPage('results')">🏆 Kết quả</button>
+      </div>
+    </div>
+  </div>
+  <div class="cbar">
+    <span class="cbar-lbl">Khai mạc 06:30 — 26/06/2026</span>
+    <div class="cd-units">
+      <div class="cd-box"><span class="cd-num" id="cd-days">--</span><span class="cd-lbl">Ngày</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><span class="cd-lbl">Giờ</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><span class="cd-lbl">Phút</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><span class="cd-lbl">Giây</span></div>
+    </div>
+    <span class="cbar-close">🏁 Bế mạc & Trao giải 18:00 — 27/06/2026</span>
+  </div>
+
+  <div class="sec sec-white" id="schedule-sec">
+    <div class="stag">Chương trình 2 ngày</div>
+    <div class="stitle">Lịch sự kiện chi tiết</div>
+    <p class="ssub">Chung kết chia đều 2 ngày · Trao giải toàn bộ trong lễ bế mạc 18:00 ngày 27/06</p>
+    <div class="day-tabs">
+      <button class="dtab active" onclick="switchDay('d1',this)">📅 Ngày 1 — 26/06/2026</button>
+      <button class="dtab red" onclick="switchDay('d2',this)">📅 Ngày 2 — 27/06/2026</button>
+    </div>
+    <div class="day-content active" id="day-d1">
+      <div class="tl">
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">06:30</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏟️ Lễ khai mạc Sports Camp 2026</h4><p>Nghi thức khai mạc, rước đuốc, diễu hành 5 đoàn và màn nhảy cổ động.</p><span class="vtag">📍 Sân vận động Việt Anh 1</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">08:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>⚽ Vòng đấu ngày 1 — Bóng đá, Điền kinh, Cờ tướng, Nhảy bao bố</h4><p>Bóng đá vòng bảng · Chạy 100m · Chạy Việt dã · Cờ tướng vòng loại · Nhảy bao bố vòng loại.</p><span class="vtag">📍 Sân VA1 & Khu ngoài trời</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">09:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏸 Vòng đấu ngày 1 — Cầu lông, Bơi lội, Nhảy cổ động</h4><p>Cầu lông vòng loại · Bơi tiếp sức vòng loại · Cướp cờ nữ · Nhảy cổ động biểu diễn.</p><span class="vtag">📍 Nhà thi đấu Maria Curie & Hồ bơi Đức Trí</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">10:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏐 Vòng đấu ngày 1 — Bóng chuyền</h4><p>Bóng chuyền nam/nữ vòng bảng · Bóng chuyền Ban Giám hiệu giao hữu.</p><span class="vtag">📍 Nhà thi đấu Việt Anh 2 & Đức Trí</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">14:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏆 Chung kết ngày 1 — Điền kinh & Bơi lội</h4><p>CK: Chạy 100m Nam/Nữ · Việt dã 4km Nam · Việt dã 3km Nữ · Tiếp sức 400m · Bơi tiếp sức.</p><span class="vtag">📍 Sân VA1 & Hồ bơi Đức Trí</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">15:30</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏆 Chung kết ngày 1 — Cờ tướng & Trò chơi dân gian</h4><p>CK: Cờ tướng · Nhảy bao bố · Cướp cờ Nữ · Nhảy cổ động (xếp hạng).</p><span class="vtag">📍 Phòng học VA1 & Sân VA2</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time red">17:30</div></div><div class="tl-line"><div class="tl-dot dot-r"></div></div><div class="tl-right"><div class="tc r"><h4>🏕️ Bắt đầu cắm trại</h4><p>Dựng lều, trò chơi kỹ năng ngoài trời, thử thách đồng đội liên trường.</p><span class="vtag r">📍 Khuôn viên trường</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time gold">19:30</div></div><div class="tl-line"><div class="tl-dot dot-g"></div></div><div class="tl-right"><div class="tc g"><h4>🔥 Đêm lửa trại</h4><p>Văn nghệ · Trò chơi tập thể · Nướng bánh · Giao lưu dưới ánh lửa bập bùng.</p><span class="vtag g">📍 Khuôn viên trại</span></div></div></div>
+      </div>
+    </div>
+    <div class="day-content" id="day-d2">
+      <div class="tl">
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">07:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🌅 Sáng trại — Bữa ăn tập thể & Khởi động</h4><p>Hoạt động buổi sáng tại trại, bữa ăn chung, khởi động cho ngày chung kết.</p><span class="vtag">📍 Khu vực trại</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">08:30</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏸 Chung kết ngày 2 — Cầu lông (5 nội dung)</h4><p>CK: Đơn Nam · Đơn Nữ · Đôi Nam · Đôi Nữ · Đôi Nam Nữ.</p><span class="vtag">📍 Nhà thi đấu Maria Curie</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">09:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>⚽ Chung kết ngày 2 — Bóng đá Nam & Nữ</h4><p>Bán kết và chung kết Bóng đá Nam · Bán kết và chung kết Bóng đá Nữ.</p><span class="vtag">📍 Sân vận động Việt Anh 1</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">10:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🏐 Chung kết ngày 2 — Bóng chuyền Nam & Nữ</h4><p>Bán kết và chung kết Bóng chuyền Nam · Bán kết và chung kết Bóng chuyền Nữ.</p><span class="vtag">📍 Nhà thi đấu Việt Anh 2</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time">14:00</div></div><div class="tl-line"><div class="tl-dot dot-b"></div></div><div class="tl-right"><div class="tc"><h4>🎭 Tổng kết & Chuẩn bị lễ bế mạc</h4><p>Tổng hợp kết quả 21 môn · Chuẩn bị sân khấu · Tập hợp các đoàn.</p><span class="vtag">📍 Sân vận động Việt Anh 1</span></div></div></div>
+        <div class="tl-row"><div class="tl-left"><div class="tl-time red">18:00</div></div><div class="tl-line"><div class="tl-dot dot-r"></div></div><div class="tl-right"><div class="tc dark"><h4>🏆 Lễ bế mạc & Trao giải toàn bộ các bộ môn</h4><p>Trao huy chương & cúp 21 môn · Vinh danh vận động viên xuất sắc · Xếp hạng toàn đoàn.</p><span class="vtag g">📍 Sân vận động Việt Anh 1</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec sec-bg" id="sports-sec">
+    <div class="stag">Thi đấu</div>
+    <div class="stitle">Các môn thi đấu</div>
+    <p class="ssub">21 nội dung · Chung kết chia đều ngày 1 & ngày 2 · Trao giải 18:00 ngày 27/06</p>
+    <div class="chips">
+      <div class="chip active" onclick="filterSports('all',this)">Tất cả</div>
+      <div class="chip" onclick="filterSports('VA1',this)">Việt Anh 1</div>
+      <div class="chip" onclick="filterSports('VA2',this)">Việt Anh 2</div>
+      <div class="chip" onclick="filterSports('DT',this)">Đức Trí</div>
+      <div class="chip" onclick="filterSports('MC',this)">Maria Curie</div>
+      <div class="chip" onclick="filterSports('EMC',this)">EMC Việt Anh</div>
+      <div class="chip" onclick="filterSports('d1',this)">🏅 Chung kết ngày 1</div>
+      <div class="chip" onclick="filterSports('d2',this)">🏅 Chung kết ngày 2</div>
+    </div>
+    <div class="sgrid" id="sports-grid"></div>
+  </div>
+
+  <div class="camp-sec" id="camp-sec">
+    <div class="camp-pat"></div>
+    <div style="position:relative;z-index:1;margin-bottom:18px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Chương trình đặc biệt</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,5vw,40px);color:#fff;letter-spacing:1px;margin-bottom:2px">Cắm trại & Lửa trại</div>
+      <p style="font-size:11px;color:rgba(255,255,255,0.45)">Đêm 26/06 — Sáng 27/06/2026</p>
+    </div>
+    <div class="camp-grid">
+      <div class="cc"><div class="cc-icon">🏕️</div><h4>Dựng lều & Cắm trại</h4><p>Học sinh và giáo viên cùng dựng lều, tổ chức không gian trại mang tinh thần đồng đội.</p><span class="tbadge">17:30 — 26/06</span></div>
+      <div class="cc"><div class="cc-icon">🎯</div><h4>Trò chơi nhóm</h4><p>Thử thách đồng đội, kỹ năng ngoài trời, gắn kết giữa 5 trường hệ thống.</p><span class="tbadge">Tối 26/06</span></div>
+      <div class="cc"><div class="cc-icon">🎭</div><h4>Văn nghệ lửa trại</h4><p>Ca hát, nhảy múa, màn trình diễn đặc sắc từ đại diện 5 trường dưới ánh lửa.</p><span class="tbadge">19:30 — 26/06</span></div>
+      <div class="cc"><div class="cc-icon">🌅</div><h4>Sáng trại ngày 2</h4><p>Bữa ăn tập thể, hoạt động buổi sáng và nạp năng lượng cho ngày chung kết.</p><span class="tbadge">07:00 — 27/06</span></div>
+    </div>
+    <div class="fire-box"><div style="font-size:30px;flex-shrink:0">🔥</div><div><h4>Đêm lửa trại — 19:30 ngày 26/06/2026</h4><p>Điểm nhấn đặc biệt — lửa trại kết nối toàn hệ thống sau ngày thi đấu đầy hứng khởi.</p></div></div>
+    <div class="awards-box">
+      <div class="aw-title">🏆 Lễ trao giải — 18:00 ngày 27/06/2026</div>
+      <p>Toàn bộ huy chương và cúp của 21 bộ môn được trao trong lễ bế mạc chính thức — một sự kiện vinh danh lớn duy nhất.</p>
+      <div class="aw-list">
+        <span class="aw-tag">⚽ Bóng đá Nam & Nữ</span><span class="aw-tag">🏐 Bóng chuyền Nam & Nữ</span><span class="aw-tag">🏸 Cầu lông (5 nội dung)</span><span class="aw-tag">🏃 Điền kinh (5 nội dung)</span><span class="aw-tag">🏊 Bơi tiếp sức</span><span class="aw-tag">💃 Nhảy cổ động</span><span class="aw-tag">♟️ Cờ tướng</span><span class="aw-tag">🥇 Nhảy bao bố</span><span class="aw-tag">🚩 Cướp cờ Nữ</span><span class="aw-tag">🏆 Toàn đoàn xuất sắc</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><div><div class="fbrand">SPORTS <span>CAMP</span> 2026</div><div class="fsub">Hệ thống trường Việt Anh</div></div><div class="finfo"><div>📍 Đường Số 13, KP. Nhị Đồng 2, P. Dĩ An, TP. HCM</div><div>📞 0868.57.57.07 | Hotline: 0868.57.57.17</div><div><a href="https://vietanhschool.edu.vn">vietanhschool.edu.vn</a></div></div></div>
+</div>
+
+<!-- KẾT QUẢ -->
+<div class="page" id="page-results">
+  <div class="results-hero"><div class="results-hero-pat"></div><div class="rsh"><div class="stag" style="color:var(--gold)">Sports Camp 2026</div><h2>Kết quả thi đấu</h2><p>Cập nhật kết quả sau từng trận · Trao giải 18:00 ngày 27/06/2026</p></div></div>
+  <div class="sec sec-white">
+    <div class="notice-box"><div style="font-size:18px;flex-shrink:0">📋</div><p>Kết quả sẽ được cập nhật trong và sau sự kiện (26–27/06/2026). Các ô hiển thị <strong>"Chưa diễn ra"</strong> sẽ được điền sau khi trận đấu kết thúc.</p></div>
+    <div class="stag">Bảng tổng sắp</div>
+    <div class="stitle">Xếp hạng toàn đoàn</div>
+    <p class="ssub" style="margin-bottom:16px">Cập nhật sau lễ bế mạc 18:00 ngày 27/06/2026</p>
+    <div style="overflow-x:auto;margin-bottom:28px"><table class="overall-table"><thead><tr><th>Hạng</th><th>Đoàn thể thao</th><th>🥇 Vàng</th><th>🥈 Bạc</th><th>🥉 Đồng</th><th>Tổng điểm</th></tr></thead><tbody id="overall-tbody"></tbody></table></div>
+    <div class="results-tabs">
+      <button class="rtab active" onclick="switchResult('all',this)">Tất cả</button>
+      <button class="rtab" onclick="switchResult('d1',this)">🏅 Ngày 1</button>
+      <button class="rtab" onclick="switchResult('d2',this)">🏅 Ngày 2</button>
+      <button class="rtab" onclick="switchResult('football',this)">⚽ Bóng đá</button>
+      <button class="rtab" onclick="switchResult('volleyball',this)">🏐 Bóng chuyền</button>
+      <button class="rtab" onclick="switchResult('badminton',this)">🏸 Cầu lông</button>
+      <button class="rtab" onclick="switchResult('athletics',this)">🏃 Điền kinh</button>
+      <button class="rtab" onclick="switchResult('other',this)">🎯 Khác</button>
+    </div>
+    <div class="sport-result-grid" id="results-grid"></div>
+  </div>
+  <div class="footer"><div><div class="fbrand">SPORTS <span>CAMP</span> 2026</div><div class="fsub">Hệ thống trường Việt Anh</div></div><div class="finfo"><div>📞 0868.57.57.07 | Hotline: 0868.57.57.17</div></div></div>
+</div>
+
+<!-- THƯ VIỆN -->
+<div class="page" id="page-gallery">
+  <div class="gallery-hero"><div class="gallery-hero-pat"></div><div class="gh"><div class="stag" style="color:var(--gold)">Sports Camp 2026</div><h2>Thư viện hình ảnh</h2><p>Những khoảnh khắc đáng nhớ · 26 & 27/06/2026</p></div></div>
+  <div class="sec sec-white">
+    <div class="upload-notice"><div class="un-icon">📷</div><h4>Hình ảnh sự kiện sẽ được cập nhật trong và sau Sports Camp 2026</h4><p>Các hình ảnh từ lễ khai mạc, các trận thi đấu, đêm lửa trại và lễ bế mạc sẽ được đăng tải tại đây.</p></div>
+    <div class="gallery-filters">
+      <div class="gf-chip active" onclick="filterGallery('all',this)">Tất cả</div>
+      <div class="gf-chip" onclick="filterGallery('opening',this)">🏟️ Khai mạc</div>
+      <div class="gf-chip" onclick="filterGallery('football',this)">⚽ Bóng đá</div>
+      <div class="gf-chip" onclick="filterGallery('volleyball',this)">🏐 Bóng chuyền</div>
+      <div class="gf-chip" onclick="filterGallery('badminton',this)">🏸 Cầu lông</div>
+      <div class="gf-chip" onclick="filterGallery('athletics',this)">🏃 Điền kinh</div>
+      <div class="gf-chip" onclick="filterGallery('swimming',this)">🏊 Bơi lội</div>
+      <div class="gf-chip" onclick="filterGallery('camp',this)">🔥 Lửa trại</div>
+      <div class="gf-chip" onclick="filterGallery('closing',this)">🏆 Bế mạc</div>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+  <div class="footer"><div><div class="fbrand">SPORTS <span>CAMP</span> 2026</div><div class="fsub">Hệ thống trường Việt Anh</div></div><div class="finfo"><div>📞 0868.57.57.07 | Hotline: 0868.57.57.17</div></div></div>
+</div>
+
+<!-- ĐĂNG KÝ -->
+<div class="page" id="page-register">
+  <div class="reg-hero"><div class="reg-hero-pat"></div><div class="rh-content"><div class="stag" style="color:var(--gold)">Sports Camp 2026</div><h2>Đăng ký tham dự</h2><p>Chọn trường để điền form đăng ký · 26 & 27/06/2026</p></div></div>
+  <div class="sec sec-white">
+    <div class="reg-info"><div style="font-size:17px;flex-shrink:0">ℹ️</div><p><strong>Hướng dẫn:</strong> Nhấn nút đăng ký của trường tương ứng để mở form Google. Mỗi trường có form riêng. Liên hệ nhà trường để biết hạn đăng ký.</p></div>
+    <div class="scards">
+      <div class="srcard"><div class="s-circle">🏫</div><h3>Trường Việt Anh 1</h3><p class="sdesc">Địa điểm chính: sân vận động, điền kinh, cờ tướng, nhảy bao bố</p><a href="https://sites.google.com/view/sports-camp-2026-vietanh/đăng-ký/việt-anh-1" target="_blank" class="reg-a">📝 Đăng ký Việt Anh 1</a></div>
+      <div class="srcard r"><div class="s-circle r">🏫</div><h3>Trường Việt Anh 2</h3><p class="sdesc">Địa điểm: bóng chuyền, nhảy cổ động, cướp cờ Nữ</p><a href="https://sites.google.com/view/sports-camp-2026-vietanh/đăng-ký/việt-anh-2" target="_blank" class="reg-a r">📝 Đăng ký Việt Anh 2</a></div>
+      <div class="srcard"><div class="s-circle">🏫</div><h3>Trường Đức Trí</h3><p class="sdesc">Địa điểm: bóng chuyền Ban Giám hiệu, bơi lội</p><a href="https://sites.google.com/view/sports-camp-2026-vietanh/đăng-ký/đức-trí" target="_blank" class="reg-a">📝 Đăng ký Đức Trí</a></div>
+      <div class="srcard r"><div class="s-circle r">🏫</div><h3>Trường Maria Curie</h3><p class="sdesc">Địa điểm: cầu lông đơn, đôi nam, đôi nữ, đôi nam/nữ</p><a href="https://sites.google.com/view/sports-camp-2026-vietanh/đăng-ký/maria-curie" target="_blank" class="reg-a r">📝 Đăng ký Maria Curie</a></div>
+      <div class="srcard g"><div class="s-circle g">🏫</div><h3>EMC Việt Anh</h3><p class="sdesc">Tham gia đầy đủ các nội dung thi đấu của hệ thống Sports Camp 2026</p><a href="https://sites.google.com/view/sports-camp-2026-vietanh/đăng-ký/emc-việt-anh" target="_blank" class="reg-a">📝 Đăng ký EMC Việt Anh</a></div>
+      <div class="srcard" style="background:#f8fbff;border-style:dashed"><div class="s-circle">📞</div><h3>Cần hỗ trợ?</h3><p class="sdesc">Liên hệ Ban tổ chức để được hỗ trợ đăng ký hoặc giải đáp thắc mắc</p><a href="tel:0868575717" class="reg-a out">📞 0868.57.57.17</a></div>
+    </div>
+  </div>
+  <div class="footer"><div><div class="fbrand">SPORTS <span>CAMP</span> 2026</div><div class="fsub">Hệ thống trường Việt Anh</div></div><div class="finfo"><div>📍 Đường Số 13, KP. Nhị Đồng 2, P. Dĩ An, TP. HCM</div><div>📞 0868.57.57.07 | Hotline: 0868.57.57.17</div></div></div>
+</div>
+
+<script>
+const resultsData=[
+  {id:'football-m',name:'Bóng đá Nam',icon:'⚽',day:'d2',cat:'football',head:'blue'},
+  {id:'football-f',name:'Bóng đá Nữ',icon:'⚽',day:'d2',cat:'football',head:'blue'},
+  {id:'volleyball-m',name:'Bóng chuyền Nam',icon:'🏐',day:'d2',cat:'volleyball',head:'blue'},
+  {id:'volleyball-f',name:'Bóng chuyền Nữ',icon:'🏐',day:'d2',cat:'volleyball',head:'blue'},
+  {id:'volleyball-bgm',name:'Bóng chuyền Ban Giám hiệu',icon:'🏐',day:'d1',cat:'volleyball',head:'red'},
+  {id:'badminton-sm',name:'Cầu lông Đơn nam',icon:'🏸',day:'d2',cat:'badminton',head:'blue'},
+  {id:'badminton-sf',name:'Cầu lông Đơn nữ',icon:'🏸',day:'d2',cat:'badminton',head:'blue'},
+  {id:'badminton-dm',name:'Cầu lông Đôi nam',icon:'🏸',day:'d2',cat:'badminton',head:'blue'},
+  {id:'badminton-df',name:'Cầu lông Đôi nữ',icon:'🏸',day:'d2',cat:'badminton',head:'blue'},
+  {id:'badminton-mx',name:'Cầu lông Đôi nam nữ',icon:'🏸',day:'d2',cat:'badminton',head:'red'},
+  {id:'run100m',name:'Chạy 100m Nam',icon:'⚡',day:'d1',cat:'athletics',head:'blue'},
+  {id:'run100f',name:'Chạy 100m Nữ',icon:'⚡',day:'d1',cat:'athletics',head:'blue'},
+  {id:'cross4k',name:'Việt dã 4.000m Nam',icon:'🏃',day:'d1',cat:'athletics',head:'blue'},
+  {id:'cross3k',name:'Việt dã 3.000m Nữ',icon:'🏃',day:'d1',cat:'athletics',head:'blue'},
+  {id:'relay400',name:'Tiếp sức 400m Nam/Nữ',icon:'🔄',day:'d1',cat:'athletics',head:'red'},
+  {id:'swimming',name:'Bơi tiếp sức Nam/Nữ',icon:'🏊',day:'d1',cat:'other',head:'blue'},
+  {id:'cheer',name:'Nhảy Cổ động',icon:'💃',day:'d1',cat:'other',head:'red'},
+  {id:'chess',name:'Cờ tướng',icon:'♟️',day:'d1',cat:'other',head:'blue'},
+  {id:'sack',name:'Nhảy bao bố',icon:'🥇',day:'d1',cat:'other',head:'blue'},
+  {id:'flagf',name:'Cướp cờ Nữ',icon:'🚩',day:'d1',cat:'other',head:'red'},
+  {id:'emc',name:'Nội dung EMC',icon:'🏋️',day:'d2',cat:'other',head:'blue'},
+];
+const overallData=[
+  {team:'Việt Anh 1',g:0,s:0,b:0,pts:0},
+  {team:'Việt Anh 2',g:0,s:0,b:0,pts:0},
+  {team:'Đức Trí',g:0,s:0,b:0,pts:0},
+  {team:'Maria Curie',g:0,s:0,b:0,pts:0},
+  {team:'EMC Việt Anh',g:0,s:0,b:0,pts:0},
+];
+function renderOverall(){
+  const tb=document.getElementById('overall-tbody');
+  if(!tb)return;
+  tb.innerHTML=overallData.map((t,i)=>`<tr><td class="rank-col">${i+1}</td><td>${t.team}</td><td class="medal-g">${t.g}</td><td class="medal-s">${t.s}</td><td class="medal-b">${t.b}</td><td class="total-col">${t.pts} điểm</td></tr>`).join('');
+}
+function renderResultCard(r){
+  const dayLabel=r.day==='d1'?'<span style="background:#e8f1fb;color:#064c8c;font-size:10px;padding:2px 7px;border-radius:2px;font-weight:600">CK Ngày 1</span>':'<span style="background:#f9eded;color:#8B1A1A;font-size:10px;padding:2px 7px;border-radius:2px;font-weight:600">CK Ngày 2</span>';
+  const hc=r.head==='red'?'red-head':'';
+  return`<div class="sr-card"><div class="sr-card-head ${hc}"><span class="sr-card-icon">${r.icon}</span><span class="sr-card-name">${r.name}</span><span class="sr-card-day">${r.day==='d1'?'Ngày 1':'Ngày 2'}</span></div><div class="sr-podium"><div style="margin-bottom:8px">${dayLabel}</div><div class="sr-row"><div class="sr-rank rank-1">🥇</div><span class="sr-team" style="color:#7a8a9a;font-style:italic">Chưa diễn ra</span></div><div class="sr-row"><div class="sr-rank rank-2">🥈</div><span class="sr-team" style="color:#7a8a9a;font-style:italic">Chưa diễn ra</span></div><div class="sr-row"><div class="sr-rank rank-3">🥉</div><span class="sr-team" style="color:#7a8a9a;font-style:italic">Chưa diễn ra</span></div></div></div>`;
+}
+function renderResults(filter){
+  const g=document.getElementById('results-grid');
+  if(!g)return;
+  let list=resultsData;
+  if(filter==='d1')list=resultsData.filter(r=>r.day==='d1');
+  else if(filter==='d2')list=resultsData.filter(r=>r.day==='d2');
+  else if(filter!=='all')list=resultsData.filter(r=>r.cat===filter);
+  g.innerHTML=list.map(renderResultCard).join('');
+}
+function switchResult(f,el){
+  document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');renderResults(f);
+}
+const galleryItems=[
+  {cat:'opening',icon:'🏟️',label:'Lễ khai mạc — Rước đuốc',cls:''},
+  {cat:'opening',icon:'🎽',label:'Lễ khai mạc — Diễu hành 5 đoàn',cls:''},
+  {cat:'opening',icon:'💃',label:'Lễ khai mạc — Nhảy cổ động',cls:''},
+  {cat:'football',icon:'⚽',label:'Bóng đá Nam — Vòng bảng',cls:'dark-ph'},
+  {cat:'football',icon:'⚽',label:'Bóng đá Nữ — Vòng bảng',cls:'dark-ph'},
+  {cat:'football',icon:'⚽',label:'Bóng đá — Chung kết',cls:'dark-ph'},
+  {cat:'volleyball',icon:'🏐',label:'Bóng chuyền Nam — Thi đấu',cls:'red-ph'},
+  {cat:'volleyball',icon:'🏐',label:'Bóng chuyền Nữ — Thi đấu',cls:'red-ph'},
+  {cat:'volleyball',icon:'🏐',label:'Bóng chuyền Ban Giám hiệu',cls:'red-ph'},
+  {cat:'badminton',icon:'🏸',label:'Cầu lông — Đơn Nam',cls:''},
+  {cat:'badminton',icon:'🏸',label:'Cầu lông — Đơn Nữ',cls:''},
+  {cat:'badminton',icon:'🏸',label:'Cầu lông — Đôi Nam Nữ',cls:''},
+  {cat:'athletics',icon:'🏃',label:'Chạy 100m — Nam & Nữ',cls:'dark-ph'},
+  {cat:'athletics',icon:'🏃',label:'Việt dã 4km — Nam',cls:'dark-ph'},
+  {cat:'athletics',icon:'🔄',label:'Tiếp sức 400m',cls:'dark-ph'},
+  {cat:'swimming',icon:'🏊',label:'Bơi tiếp sức — Hồ bơi Đức Trí',cls:''},
+  {cat:'swimming',icon:'🏊',label:'Bơi lội — Vòng loại',cls:''},
+  {cat:'camp',icon:'🔥',label:'Đêm lửa trại — 19:30 ngày 26/06',cls:'gold-ph'},
+  {cat:'camp',icon:'🏕️',label:'Cắm trại — Dựng lều',cls:'gold-ph'},
+  {cat:'camp',icon:'🎭',label:'Văn nghệ lửa trại',cls:'gold-ph'},
+  {cat:'camp',icon:'🌅',label:'Sáng trại — Ngày 27/06',cls:'gold-ph'},
+  {cat:'closing',icon:'🏆',label:'Lễ trao giải — 18:00 ngày 27/06',cls:'red-ph'},
+  {cat:'closing',icon:'🥇',label:'Vinh danh vô địch toàn đoàn',cls:'red-ph'},
+  {cat:'closing',icon:'🎉',label:'Lễ bế mạc Sports Camp 2026',cls:'red-ph'},
+];
+function renderGallery(filter){
+  const g=document.getElementById('gallery-grid');
+  if(!g)return;
+  const list=filter==='all'?galleryItems:galleryItems.filter(x=>x.cat===filter);
+  g.innerHTML=list.map(item=>`<div class="g-item"><div class="g-placeholder ${item.cls}"><div class="g-ph-icon">${item.icon}</div><div class="g-ph-label">${item.label}</div></div><div class="g-overlay ${item.cls==='red-ph'?'red-ov':''}"><span>${item.label}</span></div></div>`).join('');
+}
+function filterGallery(f,el){
+  document.querySelectorAll('.gf-chip').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');renderGallery(f);
+}
+const sports=[
+  {icon:'⚽',name:'Bóng đá Nam',venue:'Sân vận động Việt Anh 1',format:'Vòng tròn, 2 hiệp × 25 phút',tag:'VA1',final:'d2'},
+  {icon:'⚽',name:'Bóng đá Nữ',venue:'Sân vận động Việt Anh 1',format:'Vòng tròn, 2 hiệp × 20 phút',tag:'VA1',final:'d2'},
+  {icon:'🏐',name:'Bóng chuyền Nam',venue:'Nhà thi đấu Việt Anh 2',format:'3 ván thắng 2, mỗi ván 25 điểm',tag:'VA2',final:'d2'},
+  {icon:'🏐',name:'Bóng chuyền Nữ',venue:'Nhà thi đấu Việt Anh 2',format:'3 ván thắng 2, mỗi ván 25 điểm',tag:'VA2',final:'d2'},
+  {icon:'🏐',name:'Bóng chuyền Ban Giám hiệu',venue:'Nhà thi đấu Đức Trí',format:'Thi đấu giao hữu',tag:'DT',final:'d1'},
+  {icon:'🏸',name:'Cầu lông Đơn nam',venue:'Nhà thi đấu Maria Curie',format:'Loại trực tiếp, 3 ván 21 điểm',tag:'MC',final:'d2'},
+  {icon:'🏸',name:'Cầu lông Đơn nữ',venue:'Nhà thi đấu Maria Curie',format:'Loại trực tiếp, 3 ván 21 điểm',tag:'MC',final:'d2'},
+  {icon:'🏸',name:'Cầu lông Đôi nam',venue:'Nhà thi đấu Maria Curie',format:'Loại trực tiếp, 3 ván 21 điểm',tag:'MC',final:'d2'},
+  {icon:'🏸',name:'Cầu lông Đôi nữ',venue:'Nhà thi đấu Maria Curie',format:'Loại trực tiếp, 3 ván 21 điểm',tag:'MC',final:'d2'},
+  {icon:'🏸',name:'Cầu lông Đôi nam nữ',venue:'Nhà thi đấu Maria Curie',format:'Loại trực tiếp, 3 ván 21 điểm',tag:'MC',final:'d2'},
+  {icon:'🏃',name:'Chạy Việt dã 4.000m Nam',venue:'Khu ngoài trời Việt Anh 1',format:'Chung kết, xếp hạng về đích',tag:'VA1',final:'d1'},
+  {icon:'🏃',name:'Chạy Việt dã 3.000m Nữ',venue:'Khu ngoài trời Việt Anh 1',format:'Chung kết, xếp hạng về đích',tag:'VA1',final:'d1'},
+  {icon:'⚡',name:'Chạy 100m Nam',venue:'Sân vận động Việt Anh 1',format:'Vòng loại và chung kết',tag:'VA1',final:'d1'},
+  {icon:'⚡',name:'Chạy 100m Nữ',venue:'Sân vận động Việt Anh 1',format:'Vòng loại và chung kết',tag:'VA1',final:'d1'},
+  {icon:'🔄',name:'Chạy tiếp sức 400m Nam/Nữ',venue:'Sân vận động Việt Anh 1',format:'Chung kết, 4 vận động viên/đội',tag:'VA1',final:'d1'},
+  {icon:'🏊',name:'Bơi tiếp sức Nam/Nữ',venue:'Hồ bơi Đức Trí',format:'Chung kết, 4 người × 50m',tag:'DT',final:'d1'},
+  {icon:'💃',name:'Nhảy Cổ động',venue:'Sân khấu Việt Anh 2',format:'Biểu diễn nhóm, đánh giá kỹ thuật',tag:'VA2',final:'d1'},
+  {icon:'♟️',name:'Cờ tướng',venue:'Phòng học Việt Anh 1',format:'Loại trực tiếp, 30 phút/ván',tag:'VA1',final:'d1'},
+  {icon:'🥇',name:'Nhảy bao bố',venue:'Sân vận động Việt Anh 1',format:'Vòng loại và chung kết',tag:'VA1',final:'d1'},
+  {icon:'🚩',name:'Cướp cờ Nữ',venue:'Sân vận động Việt Anh 2',format:'Thi đấu theo đội, 5 người/đội',tag:'VA2',final:'d1'},
+  {icon:'🏋️',name:'Nội dung EMC',venue:'Nhà thi đấu EMC Việt Anh',format:'Nội dung đặc trưng EMC',tag:'EMC',final:'d2'},
+];
+function renderSports(f){
+  const g=document.getElementById('sports-grid');
+  if(!g)return;
+  let list=sports;
+  if(f==='d1')list=sports.filter(s=>s.final==='d1');
+  else if(f==='d2')list=sports.filter(s=>s.final==='d2');
+  else if(f!=='all')list=sports.filter(s=>s.tag===f);
+  const dl=s=>s.final==='d1'?'<span class="sday-badge sd1">🏅 CK Ngày 1</span>':'<span class="sday-badge sd2">🏅 CK Ngày 2</span>';
+  g.innerHTML=list.map(s=>`<div class="scard"><span class="sicon">${s.icon}</span><div class="sname">${s.name}</div><div class="svenue">📍 ${s.venue}</div><div class="sformat">${s.format}</div>${dl(s)}</div>`).join('');
+}
+function filterSports(t,el){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');renderSports(t);
+}
+function switchDay(d,el){
+  document.querySelectorAll('.day-content').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
+  document.getElementById('day-'+d).classList.add('active');
+  el.classList.add('active');
+}
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const nb=document.getElementById('nav-'+p);
+  if(nb)nb.classList.add('active');
+  window.scrollTo(0,0);
+}
+function tick(){
+  const t=new Date('2026-06-26T06:30:00+07:00'),n=new Date(),diff=t-n;
+  if(diff<=0){const b=document.querySelector('.cbar');if(b)b.innerHTML='<span style="color:#fff;font-size:12px;font-weight:500">🎉 Sports Camp 2026 đã khai mạc!</span>';return;}
+  const dd=Math.floor(diff/864e5),hh=Math.floor((diff%864e5)/36e5),mm=Math.floor((diff%36e5)/6e4),ss=Math.floor((diff%6e4)/1e3);
+  ['days','hours','mins','secs'].forEach((k,i)=>{const el=document.getElementById('cd-'+k);if(el)el.textContent=String([dd,hh,mm,ss][i]).padStart(2,'0');});
+}
+renderSports('all');
+renderResults('all');
+renderOverall();
+renderGallery('all');
+tick();
+setInterval(tick,1000);
+</script>
+</body>
+</html>
